@@ -74,6 +74,12 @@
     - Project: React
     - TypeScript Option: TypeScript + SWC
     - Finish configuration
+
       - cd auth-front
       - pnpm install
       - pnpm run dev
+
+    - **Add Routes Management**
+      ```bash
+        pnpm add react-router-dom
+      ```
