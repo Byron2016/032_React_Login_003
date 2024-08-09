@@ -61,3 +61,19 @@
 [⏪(Back to top)](#table-of-contents)
 
 # Steps
+
+- **Front End**
+
+  - **Install and Setup Vite React**
+
+    ```bash
+      pnpm create vite
+    ```
+
+    - Name: auth-front
+    - Project: React
+    - TypeScript Option: TypeScript + SWC
+    - Finish configuration
+      - cd auth-front
+      - pnpm install
+      - pnpm run dev
