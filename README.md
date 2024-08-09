@@ -83,3 +83,29 @@
       ```bash
         pnpm add react-router-dom
       ```
+    - **Add and configure prettier**
+
+      ```bash
+        pnpm add -D -E prettier
+
+        node --eval "fs.writeFileSync('.prettierrc','{}\n')"
+
+          {
+            "semi": false,
+            "singleQuote": true
+          }
+
+        node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncoverage\n')"
+
+          # Ignore artifacts:
+          build
+          coverage
+
+          dist
+          pnpm-lock.yaml
+          package.json
+          .prettierrc
+
+        pnpm add -D -E eslint-config-prettier
+
+      ```

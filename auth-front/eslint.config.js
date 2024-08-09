@@ -3,10 +3,21 @@ import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
+import eslintConfigPrettier from 'eslint-config-prettier'
+
+// const RULES = {
+//   OFF: 'off',
+//   WARN: 'warn',
+//   ERROR: 'error',
+// }
 
 export default tseslint.config({
-  extends: [js.configs.recommended, ...tseslint.configs.recommended],
-  files: ['**/*.{ts,tsx}'],
+  extends: [
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+    eslintConfigPrettier,
+  ],
+  files: ['**/*.{js,jsx,ts,tsx}'],
   ignores: ['dist'],
   languageOptions: {
     ecmaVersion: 2020,
@@ -22,5 +33,7 @@ export default tseslint.config({
       'warn',
       { allowConstantExport: true },
     ],
+    // '@typescript-eslint/no-unused-vars': RULES.OFF,
+    // 'prefer-const': RULES.WARN,
   },
 })
