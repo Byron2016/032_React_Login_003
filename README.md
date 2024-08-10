@@ -374,3 +374,79 @@
         </React.StrictMode>,
       )
     ```
+
+  - **Add a Global State (A Context) for AuthProvider**
+    (13.26 - 18.38)
+
+    - **Create an AuthProvider and a Context.**
+
+      - **Create a new file in this route src/auth/AuthContext.tsx**
+
+        ```js
+        import { createContext } from "react";
+
+        export const AuthContext = createContext({
+          isAuthenticated: false,
+        });
+        ```
+
+      - **Create a new file in this route src/auth/AuthContextProvider.tsx**
+
+        ```js
+        import { useState } from "react";
+        import { AuthContext } from "./AuthContext";
+
+        interface AuthProviderProps {
+          children: React.ReactNode;
+        }
+
+        export function AuthProvider({ children }: AuthProviderProps) {
+          const [isAuthenticated] = useState(false);
+
+          return (
+            <AuthContext.Provider value={{ isAuthenticated }}>
+              {children}
+            </AuthContext.Provider>
+          );
+        }
+        ```
+
+      - **Create a Hook that allow us access to our AuthProvider functions in this route src/auth/AuthContextHook.ts**
+
+        ```js
+        import { useContext } from "react";
+        import { AuthContext } from "./AuthContext";
+
+        /* Hook que nos permite acceder a las funciones de    nuestro useContext.*/
+        export const useAuth = () => useContext(AuthContext);
+        ```
+
+    - **Enable AuthProvider to main.tsx**
+
+      ```js
+        ....
+        import { AuthProvider } from './auth/AuthProvider.tsx'
+        ....
+        ReactDOM.createRoot(document.getElementById ('root') !).render(
+          <React.StrictMode>
+            <AuthProvider>
+              <RouterProvider router={router} />
+            </AuthProvider>
+          </React.StrictMode>,
+        )
+      ```
+
+    - **Use AuthContext into ProtectedRoute.tsx. We are going to use our Hook useAuth to have access to our AuthProbider's functions.**
+
+      ```js
+      /* Su única función será validar si el usaurio  está autentificado, si no lo está te   redirigirá */
+      // import { useState } from "react"
+      import { Outlet, Navigate } from "react-router-dom";
+      import { useAuth } from "../auth/AuthProvider";
+      export default function ProtectedRoute() {
+        // const [isAuth, setIsAuth] = useState(false)
+        const auth = useAuth();
+        //return isAuth ? <Outlet /> : <Navigate to="/" / >
+        return auth.isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+      }
+      ```
