@@ -109,3 +109,68 @@
         pnpm add -D -E eslint-config-prettier
 
       ```
+
+    - **Add and configure lint-staged and husky**
+
+      ```bash
+          pnpm add -D -E lint-staged husky
+
+      ```
+
+      - **lint-staged**
+
+        - Add to "package.json"
+
+        ```bash
+          ,
+          "lint-staged": {
+            "src/**/*.{ts,tsx,js, jsx}": [
+              "prettier --write  --ignore-unknown",
+              "eslint --cache --fix"
+            ]
+          }
+        ```
+
+        - Add ".eslintcache" to ".gitignore"
+
+        - Add to "package.json"
+
+          ```bash
+            "scripts": {
+              ....
+              "lint_stage": "lint-staged --debug",
+              ....
+            }
+          ```
+
+      - **husky**
+
+        - ".git" is in a parent directory
+
+          .ADMIN
+          ├── .git/
+          ├── folder_1/ [ No package.json ]
+          └── auth-front/ [ Contains Package.json with .husky]
+
+          - Add to "package.json"
+
+          ```bash
+            "scripts": {
+              ....
+              "prepare": "cd .. && husky auth-front/.husky"
+              ....
+            }
+          ```
+
+          - Run "pnpm run prepare" to generate the .husky directory and its contents. then you will see directory .husky inside the auth-front
+
+          ```bash
+            pnpm run prepare
+          ```
+
+          - then all you have to do , create new file inside ".husky/pre-commit"
+
+          ```bash
+            cd auth-front
+            pnpm run lint_stage
+          ```

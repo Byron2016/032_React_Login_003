@@ -1,0 +1,2 @@
+cd auth-front
+pnpm run lint_stage

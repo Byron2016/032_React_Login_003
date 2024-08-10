@@ -7,8 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint_stage": "lint-staged --debug",
     "format": "prettier --check .",
-    "preview": "vite preview"
+    "format:fix": "prettier --write .",
+    "format:diff": "prettier . --list-different",
+    "preview": "vite preview",
+    "prepare": "cd .. && husky auth-front/.husky"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -25,9 +29,17 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "husky": "9.1.4",
+    "lint-staged": "15.2.8",
     "prettier": "3.3.3",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.0"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js, jsx}": [
+      "prettier --write  --ignore-unknown",
+      "eslint --cache --fix"
+    ]
   }
 }
