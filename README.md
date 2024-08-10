@@ -568,3 +568,48 @@
           );
         }
         ```
+
+  - **Validate protected routes for Login and Signup**
+    (25.0 - 27.56)
+
+    - If you are already autenticated, you don´t need to go to login or signup pages, you must be redirect to your principal page.
+
+    - **Form 1: With Navigate of React-router-dom**
+
+      ```js
+        ....
+        import { useAuth } from '../auth/AuthContextHook'
+        import { Navigate } from "react-router-dom";
+
+        export default function Login(){
+          ....
+
+          const auth = useAuth()
+
+          if(auth.isAuthenticated){
+            /* si ya está autentificado se va directo al  dashboard. */
+            return <Navigate to="/dashboard"/>
+          }
+
+          ....
+        }
+      ```
+
+      ```js
+        ....
+        import { useAuth } from '../auth/AuthContextHook'
+        import { Navigate } from "react-router-dom";
+
+        export default function Signup(){
+          ....
+
+          const auth = useAuth()
+
+          if(auth.isAuthenticated){
+            /* si ya está autentificado se va directo al  dashboard. */
+            return <Navigate to="/dashboard"/>
+          }
+
+          ....
+        }
+      ```
