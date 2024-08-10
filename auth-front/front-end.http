@@ -1,0 +1,17 @@
+@hostname = http://localhost
+@port = 5173
+@token = 
+
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+
+
+### Login
+### 
+GET {{host}}
+
+### DASHBOARD
+### 
+GET {{host}}/dashboard

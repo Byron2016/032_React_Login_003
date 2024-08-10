@@ -268,3 +268,109 @@
           padding: 10px;
         }
       ```
+
+  - **Add Routes to main.tsx**
+    (5.14 - 9.0)
+
+    ```js
+      import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+      const router = createBrowserRouter([
+        {
+          path: "/",
+          element: <App/>,
+        }
+      ]);
+
+      ReactDOM.createRoot(document.getElementById('root')   !).render(
+        <React.StrictMode>
+          <RouterProvider router={router} />
+        </React.StrictMode>,
+      )
+    ```
+
+  - **Create a new folder src/routes**
+
+    - Create new file Dashboard.tsx
+
+      ```js
+      export default function Dashboard() {
+        return <h1>Dashboard</h1>;
+      }
+      ```
+
+    - Create new file Login.tsx
+
+      ```js
+      export default function Login() {
+        return <h1>Login</h1>;
+      }
+      ```
+
+    - Create new file Signup.tsx
+
+      ```js
+      export default function Signup() {
+        return <h1>Signup</h1>;
+      }
+      ```
+
+    - **Protected routes: Create new file ProtectedRoute.tsx**
+      (9.0 - 13.20)
+
+      ```js
+      /* Su única función será validar si el usaurio está autentificado, si no lo   está te     redirigirá */
+
+      import { useState } from "react";
+      import { Outlet, Navigate } from "react-router-dom";
+
+      export default function ProtectedRoute() {
+        const [isAuth, setIsAuth] = useState(false);
+
+        return isAuth ? <Outlet /> : <Navigate to="/" />;
+      }
+      ```
+
+  - **Add this new routes to the last routes that we created in main.tsx**
+
+    ```js
+      import React from 'react'
+      import ReactDOM from 'react-dom/client'
+
+      import './index.css'
+      import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+      // routes
+      import Login from './routes/Login.tsx'
+      import Dashboard from './routes/Dashboard.tsx'
+      import Signup from './routes/Signup.tsx'
+      import ProtectedRoute from './routes/ProtectedRoute.tsx'
+
+      const router = createBrowserRouter([
+        {
+          path: '/',
+          element: <Login />,
+        },
+        {
+          path: '/signup',
+          element: <Signup />,
+        },
+        // Add a protected route
+        {
+          path: '/',
+          element: <ProtectedRoute />,
+          children: [
+            {
+              path: '/dashboard',
+              element: <Dashboard />,
+            },
+          ],
+        },
+      ])
+
+      ReactDOM.createRoot(document.getElementById('root')!).render(
+        <React.StrictMode>
+          <RouterProvider router={router} />
+        </React.StrictMode>,
+      )
+    ```
